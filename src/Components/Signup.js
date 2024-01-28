@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { TbLockSquareRoundedFilled } from "react-icons/tb";
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function Signup() {
   const [fname, setFname] = useState("");
@@ -10,38 +11,40 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  const submit= async (e)=>{
+  const submit = async (e) => {
     // e.preventDefault();
 
-    let result=await axios.post("/register",{fname,lname,contact,email,password,cpassword});
+    let result = await axios.post("/register", {
+      fname,
+      lname,
+      contact,
+      email,
+      password,
+      cpassword,
+    });
     console.log(result);
 
-    let res= await result.data;
-    let status= await result.status;
+    let res = await result.data;
+    let status = await result.status;
 
-    if(status===201){
-      alert('Registered Successfully')
-      navigate('/')
+    if (status === 201) {
+      toast.success("Registered Successfully");
+      navigate("/");
+    } else if (res === "user Alredy exists") {
+      toast.warning("user alredy exists");
+      navigate("/");
+    } else {
+      toast.error("Something Went Wrong");
     }
-    else if (res==="user Alredy exists") {
-      alert('user alredy exists');
-      navigate('/') 
-     }
-     else{
-      alert('Something Went Wrong');
-     }
-    
-   
 
-    console.log({fname,lname,contact,email,password,cpassword});
-
-  }
+    console.log({ fname, lname, contact, email, password, cpassword });
+  };
 
   return (
     <div>
-      <div className="  w-full">
+      <div className="  w-full bg-black">
         <div className=" grid place-items-center h-screen  ">
           <div className="grid place-items-center h-[90%] border-2 border-[#E63946] shadow-lg shadow-[#E63946] w-[40%]">
             <div className="">
@@ -61,7 +64,6 @@ function Signup() {
                   onChange={(e) => {
                     setFname(e.target.value);
                   }}
-                  
                 />
               </div>
               <div className="">
@@ -125,7 +127,10 @@ function Signup() {
                 />
               </div>
               <div className="py-3">
-                <button className="w-[100%] h-[40px] border-2 border-black  bg-sky-700 rounded-lg " onClick={submit}>
+                <button
+                  className="w-[100%] h-[40px] border-2 border-black  bg-sky-700 rounded-lg "
+                  onClick={submit}
+                >
                   {" "}
                   Sign up
                 </button>

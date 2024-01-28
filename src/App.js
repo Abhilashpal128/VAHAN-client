@@ -1,53 +1,92 @@
-import {  Route, Routes, useLocation } from 'react-router-dom';
-import { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './App.css';
+import { Route, Routes, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import Navbar from './Components/Navbar';
-import Home from './Components/Home';
-import Services from './Components/Services';
-import Blog from './Components/Blog';
-import About from './Components/About';
-import Book from './Components/Book';
-import Signin from './Components/Signin';
-import Signup from './Components/Signup';
-
+import Navbar from "./Components/Navbar";
+import Home from "./Components/Home";
+import Services from "./Components/Services";
+import Blog from "./Components/Blog";
+import About from "./Components/About";
+import Book from "./Components/Book";
+import Signin from "./Components/Signin";
+import Signup from "./Components/Signup";
+import Location from "./Components/Location";
+import Footer from "./Components/Footer";
+import Profile from "./Components/Profile";
+import ErrorPAge from "./Components/ErrorPAge";
+import Contact from "./Components/Contact";
+import Faq from "./Components/Faq";
 
 function App() {
-
-  const location=useLocation();
-  const [cab,setCab]=useState(null)
+  const location = useLocation();
+  const [cab, setCab] = useState(null);
+  const [latitudes, setLatitudes] = useState("");
+  const [longitudes, setLongitudes] = useState("");
   const navigate = useNavigate();
 
-  const handleclick= (buttonvalue)=>{
+  const handleclick = (buttonvalue) => {
     console.log(buttonvalue);
-     setCab(buttonvalue);
-     navigate('/Book')
-    
-  }
-  useEffect(()=>{
-    console.log(cab);
-  },[cab])
+    setCab(buttonvalue);
+    navigate("/Book");
+  };
 
+  function myLocation() {
+    const success = (position) => {
+      console.log(position);
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      setLatitudes(latitude);
+      setLongitudes(longitude);
+    };
+    const error = () => {
+      console.log("something went wrong");
+    };
+
+    const locat = navigator.geolocation.getCurrentPosition(success, error);
+    console.log(locat);
+  }
+
+  useEffect(() => {
+    console.log(cab);
+    console.log(latitudes + "  " + longitudes);
+    myLocation();
+  }, [cab, latitudes, longitudes]);
+
+  // bg-[#2E4053]
   return (
-    <div className="App bg-[#2E4053]">
-      
-      
-      
-     { location.pathname === '/' || location.pathname==='/signup' ? null : <Navbar />}
-     
-    
-      <Routes>  
-        <Route path='/' element={<Signin />}/>
-        <Route path='/Home' element={<Home cab={cab} handleclick={handleclick}/>}/>
-        <Route path='/signup' element={<Signup/>}/>
-        <Route path='/About' element={<About />}/>
-        <Route path='/services' element={<Services />}/>
-        <Route path='/blog' element={<Blog />}/>
-        <Route path='/Book' element={< Book cab={cab} handleclick={handleclick}/>}/>
+    <div className="App bg-white text-black ">
+      <ToastContainer />
+      {location.pathname === "/signup" ? null : <Navbar />}
+
+      <Routes>
+        <Route
+          path="/location"
+          element={<Location latitude={latitudes} longitude={longitudes} />}
+        />
+        <Route path="/" element={<Signin />} />
+        <Route
+          path="/Home"
+          element={<Home cab={cab} handleclick={handleclick} />}
+        />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<ErrorPAge />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/faq" element={<Faq />} />
+        <Route
+          path="/Book"
+          element={<Book cab={cab} handleclick={handleclick} />}
+        />
       </Routes>
-     
-     
+      {location.pathname === "/" || location.pathname === "/signup" ? null : (
+        <Footer />
+      )}
     </div>
   );
 }

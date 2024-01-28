@@ -1,18 +1,11 @@
-import React, { useEffect } from "react";
-import axios from 'axios';
+import React from "react";
 import aboutone from "../images/about-1.jpg";
 import aboutthree from "../images/about-3.jpg";
 import aboutfive from "../images/about-5.jpg";
 import "../Styles/About.css";
-import { useNavigate } from "react-router-dom";
 
 function About() {
-
-
-
-
   return (
-  
     <div className="bg-white">
       <div className="bg-black text-center text-white  ">
         <h1 className="text-3xl">About Us</h1>

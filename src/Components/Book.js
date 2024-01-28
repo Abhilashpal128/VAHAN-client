@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -11,10 +11,13 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 
-import slideone from '../images/Sideimg1.webp';
-import slidetwo from '../images/sideimg4.jpg';
-import slidethree from '../images/sideimg3.jpg';
-import slidefour from '../images/sideimg2.webp';
+import slideone from "../images/Sideimg1.webp";
+import slidetwo from "../images/sideimg4.jpg";
+import slidethree from "../images/sideimg3.jpg";
+import slidefour from "../images/sideimg2.webp";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 function Book({ cab, handleclick }) {
   const [km, setKm] = useState(0);
@@ -22,9 +25,13 @@ function Book({ cab, handleclick }) {
   const [charges, setCharges] = useState(0);
   const [firstdist, setFirstdist] = useState(0);
   const [perkm, setPerkm] = useState(0);
+  const navigate = useNavigate();
 
   // Calculation Part
 
+  // const fetchlocation = () => {
+  //   navigate("/location");
+  // };
   const Submit = async (e) => {
     e.preventDefault();
 
@@ -203,23 +210,19 @@ function Book({ cab, handleclick }) {
   const images = [
     {
       label: "Find Right And Actual Price",
-      imgPath:
-        slideone,
+      imgPath: slideone,
     },
     {
       label: "First Priority For A Safe Ride choosing Best Way",
-      imgPath:
-        slidetwo
+      imgPath: slidetwo,
     },
     {
       label: "select vehical According To Your Need",
-      imgPath:
-        slidethree
+      imgPath: slidethree,
     },
     {
       label: " Well Experienced and Trusted Drivers",
-      imgPath:
-      slidefour
+      imgPath: slidefour,
     },
   ];
 
@@ -239,10 +242,45 @@ function Book({ cab, handleclick }) {
     setActiveStep(step);
   };
 
+  const Authentication = async () => {
+    try {
+      const Token = localStorage.getItem("Jwtoken");
+      if (!Token) {
+        toast.error("please sign in first");
+        navigate("/");
+      } else {
+        const response = await axios.get("/validateUser", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: Token,
+          },
+        });
+        console.log(`response`, response);
+        if (response) {
+          if (response.status === 200) {
+            console.log("Authenticated");
+          } else if (response.status === 404) {
+            navigate("/");
+          }
+        } else {
+          navigate("/");
+        }
+        console.log(`response`, response);
+      }
+    } catch (error) {
+      toast.error("something went wrong");
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    Authentication();
+  }, [Authentication]);
+
   return (
     <div>
-      <div className="h-screen flex  pt-9  ">
-        <div className="md:w-[40%] grid place-items-center  gap-4 h-20  ">
+      <div className=" md:h-screen bg-gray-700 h-full flex md:flex-row flex-col gap-9 md:gap-0 pt-9  ">
+        <div className="md:w-[40%] grid place-items-center gap-4  order-2  ">
           <div className="w-[80%]">
             <div>
               <select
@@ -318,8 +356,8 @@ function Book({ cab, handleclick }) {
           </div>
         </div>
 
-        <div className="md:w-[60%] ">
-          <Box sx={{ maxWidth: 800, flexGrow: 1 }}>
+        <div className="md:w-[60%]  order-1 ">
+          <Box sx={{ maxWidth: 800, flexGrow: 1 }} className="float-none">
             <Paper
               square
               elevation={0}
@@ -345,7 +383,7 @@ function Book({ cab, handleclick }) {
                     <Box
                       component="img"
                       sx={{
-                        height: 450,
+                        height: 430,
                         display: "block",
                         maxWidth: 800,
                         overflow: "hidden",
@@ -391,6 +429,7 @@ function Book({ cab, handleclick }) {
                 </Button>
               }
             />
+            {/* <Button onClick={fetchlocation}> Fetch Drivers Location </Button> */}
           </Box>
         </div>
       </div>
