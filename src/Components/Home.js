@@ -46,7 +46,7 @@ function Home({ cab, handleclick }) {
 
   useEffect(() => {
     Authentication();
-  }, [Authentication]);
+  }, []);
 
   const data = [
     {

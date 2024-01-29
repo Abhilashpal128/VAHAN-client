@@ -41,7 +41,7 @@ function Contact() {
 
   useEffect(() => {
     Authentication();
-  }, [Authentication]);
+  }, []);
 
   return (
     <div className="">

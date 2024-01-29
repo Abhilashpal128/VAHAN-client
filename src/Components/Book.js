@@ -275,7 +275,7 @@ function Book({ cab, handleclick }) {
 
   useEffect(() => {
     Authentication();
-  }, [Authentication]);
+  }, []);
 
   return (
     <div>
