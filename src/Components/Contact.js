@@ -32,6 +32,7 @@ function Contact() {
           navigate("/");
         }
         console.log(`response`, response);
+        console.log(`hii`);
       }
     } catch (error) {
       toast.error("UnAuthenticated");
