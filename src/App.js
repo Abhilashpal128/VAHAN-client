@@ -19,6 +19,7 @@ import Profile from "./Components/Profile";
 import ErrorPAge from "./Components/ErrorPAge";
 import Contact from "./Components/Contact";
 import Faq from "./Components/Faq";
+import axios from "axios";
 
 function App() {
   const location = useLocation();
@@ -26,6 +27,8 @@ function App() {
   const [latitudes, setLatitudes] = useState("");
   const [longitudes, setLongitudes] = useState("");
   const navigate = useNavigate();
+
+  axios.defaults.withCredentials = true;
 
   const handleclick = (buttonvalue) => {
     console.log(buttonvalue);
