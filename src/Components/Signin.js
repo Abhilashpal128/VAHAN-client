@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 function Signin() {
   const navigate = useNavigate();
- 
+  axios.defaults.withCredentials = true;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
