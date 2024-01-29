@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 function Signin() {
   const navigate = useNavigate();
+ 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,11 +15,13 @@ function Signin() {
     e.preventDefault();
     try {
       console.log({ email, password });
-      const res = await axios.post("/login", { email, password });
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
+        email,
+        password,
+      });
       // const data = await result.json();
       // const result = await res.data.json();
 
-      console.log(res);
       if (res.data && res.data.status === 200 && res.data.result) {
         const { token, userExist } = res.data.result;
         token

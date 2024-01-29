@@ -16,7 +16,7 @@ function Signup() {
   const submit = async (e) => {
     // e.preventDefault();
 
-    let result = await axios.post("/register", {
+    let result = await axios.post(`${process.env.REACT_APP_API_URL}/register`, {
       fname,
       lname,
       contact,

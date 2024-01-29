@@ -51,7 +51,9 @@ function Navbar() {
     const userData = localStorage.getItem("user");
     const userDataArray = JSON.parse(userData);
     setUser(userDataArray);
-    console.log(`hii`);
+    console.log(`hii`, process.env.REACT_APP_API_URL);
+    console.log("process");
+    console.log();
   }, [Location.pathname]);
 
   const handleLogout = () => {

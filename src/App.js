@@ -22,6 +22,7 @@ import Faq from "./Components/Faq";
 import axios from "axios";
 
 function App() {
+  
   const location = useLocation();
   const [cab, setCab] = useState(null);
   const [latitudes, setLatitudes] = useState("");

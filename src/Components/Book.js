@@ -249,7 +249,7 @@ function Book({ cab, handleclick }) {
         toast.error("please sign in first");
         navigate("/");
       } else {
-        const response = await axios.get("/validateUser", {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/validateUser`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: Token,
