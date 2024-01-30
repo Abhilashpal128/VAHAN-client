@@ -62,7 +62,9 @@ function App() {
   return (
     <div className="App bg-white text-black ">
       <ToastContainer />
-      {location.pathname === "/signup" ? null : <Navbar />}
+      {location.pathname === "/" || location.pathname === "/signin" ? null : (
+        <Navbar />
+      )}
 
       <Routes>
         <Route
@@ -87,7 +89,7 @@ function App() {
           element={<Book cab={cab} handleclick={handleclick} />}
         />
       </Routes>
-      {location.pathname === "/" || location.pathname === "/signup" ? null : (
+      {location.pathname === "/" || location.pathname === "/signin" ? null : (
         <Footer />
       )}
     </div>
