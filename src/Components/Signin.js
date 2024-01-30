@@ -94,7 +94,7 @@ function Signin() {
             <div className="flex py-5">
               <div className="w-[40%] text-left text-sm text-red-600"></div>
               <div className="w-[60%] text-right text-sm text-red-600">
-                <NavLink to="/signup">Don't have an Account? Sing Up.</NavLink>
+                <NavLink to="/signup">Don't have an Account? Sign Up.</NavLink>
               </div>
             </div>
           </div>
