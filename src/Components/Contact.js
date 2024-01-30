@@ -48,7 +48,7 @@ function Contact() {
   }, []);
 
   return (
-    <div className="">
+    <div className="md:h-screen">
       <h1 className="text-4xl text-black font-bold text-center py-4">
         Contact Us
       </h1>
