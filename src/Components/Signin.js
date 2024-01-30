@@ -50,7 +50,7 @@ function Signin() {
   return (
     <div className="  w-full bg-black">
       <div className=" grid place-items-center h-screen  ">
-        <div className="grid place-items-center h-[70%] border-2 border-[#E63946] shadow-lg shadow-[#E63946] w-[40%]">
+        <div className="grid place-items-center h-[70%] border-2 border-[#E63946] shadow-lg shadow-[#E63946] lg:w-[40%] md:w-[60%] w-[90%] ">
           <div className="">
             <TbLockSquareRoundedFilled className="text-4xl text-purple-600 " />
           </div>
