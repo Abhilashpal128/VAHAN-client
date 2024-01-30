@@ -22,7 +22,6 @@ import Faq from "./Components/Faq";
 import axios from "axios";
 
 function App() {
-  
   const location = useLocation();
   const [cab, setCab] = useState(null);
   const [latitudes, setLatitudes] = useState("");
@@ -70,12 +69,12 @@ function App() {
           path="/location"
           element={<Location latitude={latitudes} longitude={longitudes} />}
         />
-        <Route path="/" element={<Signin />} />
+        <Route path="/signin" element={<Signin />} />
         <Route
           path="/Home"
           element={<Home cab={cab} handleclick={handleclick} />}
         />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Signup />} />
         <Route path="/About" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/blog" element={<Blog />} />

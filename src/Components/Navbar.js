@@ -57,7 +57,7 @@ function Navbar() {
   }, [Location.pathname]);
 
   const handleLogout = () => {
-    navigate("/");
+    navigate("/signin");
 
     localStorage.removeItem("user");
     localStorage.removeItem("Jwtoken");

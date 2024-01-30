@@ -1,8 +1,18 @@
 import React, { useState } from "react";
-import { TbLockSquareRoundedFilled } from "react-icons/tb";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Signup() {
   const [fname, setFname] = useState("");
@@ -12,140 +22,208 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
   const navigate = useNavigate();
+  const defaultTheme = createTheme();
 
-  const submit = async (e) => {
-    // e.preventDefault();
+  function Copyright(props) {
+    return (
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        {...props}
+      >
+        {"Copyright © "}
+        <Link color="inherit" href="https://vahan-client.vercel.app/">
+          VAHAN
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    );
+  }
 
-    let result = await axios.post(`${process.env.REACT_APP_API_URL}/register`, {
-      fname,
-      lname,
-      contact,
-      email,
-      password,
-      cpassword,
-    });
-    console.log(result);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let result = await axios.post(
+        `${process.env.REACT_APP_API_URL}/register`,
+        {
+          fname,
+          lname,
+          contact,
+          email,
+          password,
+          cpassword,
+        }
+      );
+      console.log(result);
 
-    let res = await result.data;
-    let status = await result.status;
+      let res = await result.data;
+      let status = await result.status;
 
-    if (status === 201) {
-      toast.success("Registered Successfully");
-      navigate("/");
-    } else if (res === "user Alredy exists") {
-      toast.warning("user alredy exists");
-      navigate("/");
-    } else {
-      toast.error("Something Went Wrong");
+      if (status === 201) {
+        toast.success("Registered Successfully");
+        navigate("/signin");
+      } else if (res === "user Alredy exists") {
+        toast.warning("user alredy exists");
+        navigate("/signin");
+      } else if (res === "Passwords are not matching") {
+        toast.error("Passwords are not matching");
+      } else if (res === "please enter all detail") {
+        toast.error("Please enter all details");
+      } else {
+        toast.error("Something Went Wrong");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+      console.log(error);
     }
 
-    console.log({ fname, lname, contact, email, password, cpassword });
+    // console.log({ fname, lname, contact, email, password, cpassword });
+  };
+
+  const handleContactChange = (event) => {
+    // Ensure only numeric input
+    const numericValue = event.target.value.replace(/\D/g, "");
+
+    // Limit to 10 digits
+    const truncatedValue = numericValue.slice(0, 10);
+
+    setContact(truncatedValue);
   };
 
   return (
-    <div>
-      <div className="  w-full bg-black">
-        <div className=" grid place-items-center h-screen  ">
-          <div className="grid place-items-center h-[90%] border-2 border-[#E63946] shadow-lg shadow-[#E63946] lg:w-[40%] md:w-[60%] w-[90%] ">
-            <div className="">
-              <TbLockSquareRoundedFilled className="text-4xl text-purple-600 " />
-            </div>
-            <div className="">
-              <h1>Sign Up</h1>
-            </div>
-            <div className="w-[80%] ">
-              <div className="py-3 ">
-                <input
-                  type="text"
-                  placeholder="Enter First Name"
-                  className=" h-[40px] w-[100%] rounded-md pl-3 border-2 border-black "
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
                   required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
                   value={fname}
                   onChange={(e) => {
                     setFname(e.target.value);
                   }}
+                  autoFocus
                 />
-              </div>
-              <div className="">
-                <input
-                  type="text"
-                  placeholder="Enter Last Name"
-                  className=" h-[40px] w-[100%] rounded-md pl-3 border-2 border-black"
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
                   required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
                   value={lname}
                   onChange={(e) => {
                     setLname(e.target.value);
                   }}
                 />
-              </div>
-              <div className="py-3">
-                <input
-                  type="text"
-                  placeholder="Enter Contact Number"
-                  className=" h-[40px] w-[100%] rounded-md pl-3 border-2 border-black "
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
                   required
-                  value={contact}
-                  onChange={(e) => {
-                    setContact(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="">
-                <input
-                  type="text"
-                  placeholder="Enter Email"
-                  className=" h-[40px] w-[100%] rounded-md pl-3  border-2 border-black"
-                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
                 />
-              </div>
-              <div className="py-3">
-                <input
-                  type="password"
-                  placeholder="Enter Password"
-                  className=" h-[40px] w-[100%] rounded-md pl-3  border-2 border-black "
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
                   required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
                 />
-              </div>
-              <div className="">
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  className=" h-[40px] w-[100%] rounded-md pl-3 border-2 border-black"
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
                   required
+                  fullWidth
+                  name="Cpassword"
+                  label="confirm password"
+                  type="password"
+                  id="Cpassword"
+                  autoComplete="new-password"
                   value={cpassword}
                   onChange={(e) => {
                     setCpassword(e.target.value);
                   }}
                 />
-              </div>
-              <div className="py-3">
-                <button
-                  className="w-[100%] h-[40px] border-2 border-black  bg-sky-700 rounded-lg "
-                  onClick={submit}
-                >
-                  {" "}
-                  Sign up
-                </button>
-              </div>
-              <div className="flex py-3 ">
-                <div className=" w-[100%] text-right text-sm text-red-600">
-                  <NavLink to="/"> Already have an Account? login.</NavLink>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div></div>
-        </div>
-      </div>
-    </div>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="contact"
+                  label="Contact"
+                  type="Number"
+                  id="number"
+                  autoComplete="contact"
+                  value={contact}
+                  onChange={handleContactChange}
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <NavLink to="/signin" variant="body2">
+                  Already have an account? Sign in
+                </NavLink>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
   );
 }
 

@@ -16,7 +16,7 @@ const Footer = () => {
     <div className="md:h-[300px] h-full bg-black text-white py-6">
       <div className="grid md:grid-cols-4 grid-cols-2 place-items-center gap-5">
         <div>
-          <h1 className="text-3xl font-bold py-2">Company</h1>
+          <h1 className="text-2xl font-bold py-2">Company</h1>
           <ul className="text-gray-400  ">
             <li
               className="hover:underline hover:cursor-pointer"
@@ -41,7 +41,7 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h1 className="text-3xl font-bold py-2">Get help</h1>
+          <h1 className="text-2xl font-bold py-2">Get help</h1>
           <ul className="text-gray-400  ">
             <li
               className="hover:underline hover:cursor-pointer"
@@ -65,7 +65,7 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h1 className="text-3xl font-bold py-2">Booking Systems</h1>
+          <h1 className="text-2xl font-bold py-2">Booking Systems</h1>
           <ul className="text-gray-400  ">
             <li
               className="hover:underline hover:cursor-pointer"
@@ -82,7 +82,7 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h1 className="text-3xl font-bold py-2">Social Media</h1>
+          <h1 className="text-2xl font-bold py-2">Social Media</h1>
           <ul className="text-gray-400  flex flex-col items-center gap-6">
             <li className="hover:scale-125 text-center">
               <NavLink

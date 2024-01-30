@@ -23,18 +23,34 @@ function Profile() {
         </div>
 
         <div>
-          <h1 className="text-2xl font-bold flex gap-6">
+          <h1 className="text-2xl font-bold flex flex-col">
             {" "}
             <span>Name:</span>
-            <span>
-              {user?.fname} {user?.lname}
-            </span>
+            <input
+              type="text"
+              className="border-2 border-gray-500 rounded-md pl-3 w-[100%]"
+              disabled
+              placeholder={`${user?.fname} ${user?.lname}`}
+            />
+            <span></span>
           </h1>
-          <h1 className="text-2xl font-bold flex gap-6">
-            <span>Email :</span> <span>{user?.email}</span>
+          <h1 className="text-2xl font-bold flex flex-col ">
+            <span>Email:</span>
+            <input
+              type="text"
+              className="border-2 border-gray-500 rounded-md pl-3 w-[100%]"
+              disabled
+              placeholder={`${user?.email}`}
+            />
           </h1>
-          <h1 className="text-2xl font-bold flex gap-6">
-            <span>Contact :</span> <span>{user?.contact}</span>
+          <h1 className="text-2xl font-bold flex flex-col">
+            <span>Contact :</span>
+            <input
+              type="text"
+              className="border-2 border-gray-500 rounded-md pl-3 w-[100%]"
+              disabled
+              placeholder={`${user?.contact}`}
+            />
           </h1>
         </div>
       </div>

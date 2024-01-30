@@ -13,30 +13,33 @@ function Contact() {
       const Token = localStorage.getItem("Jwtoken");
       if (!Token) {
         toast.error("please sign in first");
-        navigate("/");
+        navigate("/signin");
       } else {
-        const response = await axios.get("/validateUser", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: Token,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/validateUser`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: Token,
+            },
+          }
+        );
         console.log(`response`, response);
         if (response) {
           if (response.status === 200) {
             console.log("Authenticated");
           } else if (response.status === 404) {
-            navigate("/");
+            navigate("/signin");
           }
         } else {
-          navigate("/");
+          navigate("/signin");
         }
         console.log(`response`, response);
         console.log(`hii`);
       }
     } catch (error) {
       toast.error("UnAuthenticated");
-      navigate("/");
+      navigate("/signin");
     }
   };
 
