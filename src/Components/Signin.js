@@ -15,10 +15,16 @@ function Signin() {
     e.preventDefault();
     try {
       console.log({ email, password });
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/login`,
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       // const data = await result.json();
       // const result = await res.data.json();
 
