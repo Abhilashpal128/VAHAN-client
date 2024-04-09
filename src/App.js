@@ -62,9 +62,8 @@ function App() {
   return (
     <div className="App bg-white text-black ">
       <ToastContainer />
-      {location.pathname === "/" || location.pathname === "/signin" ? null : (
-        <Navbar />
-      )}
+
+      <Navbar />
 
       <Routes>
         <Route
